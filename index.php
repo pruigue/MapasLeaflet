@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Quick Start - Leaflet</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+       
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
               integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
               crossorigin=""/>
@@ -16,7 +16,6 @@
         <div id="mapid" style="width: 800px; height: 600px;"></div>
         <script>
             var latlngs = [];
-            var polyline;// = L.polyline(latlngs, {color: 'red'}).addTo(map);
 
             var mymap = L.map('mapid').setView([37.456583470231, -3.9191633462906], 14);
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -29,19 +28,18 @@
                 zoomOffset: -1
             }).addTo(mymap);
 
+            var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+
             function onMapClick(e) {
                 var marker = L.marker().on("click", function (e) {
                     borrar(e.latlng);//borramos el punto de la BBDD
                     latlngs.splice(latlngs.indexOf(e.latlng),1);//lo quitamos del vector de puntos
                     e.target.remove();//removemos el marcador
                     //eliminar(e.latlng);//lo eliminamos del dcto, por hacer.....
-
                     mostrar(mymap);
                 });
-                ;
-                marker
-                        .setLatLng(e.latlng)
-                        .addTo(mymap);
+
+                marker.setLatLng(e.latlng).addTo(mymap);
 
                 enviar(e.latlng);// lo insertamos en la BBDD
                 latlngs.push(e.latlng);//lo metemos en el vector
@@ -49,7 +47,7 @@
                 agregarElemento(e.latlng);//lo añadimos al documento
             }
 
-            mymap.on('click', onMapClick);//registro del evento click sobre el mapa
+            mymap.on('click', onMapClick);
 
             function enviar(latLng) {
                 xhttp = new XMLHttpRequest();
@@ -70,8 +68,8 @@
             }
 
             function mostrar(map){
+                map.removeLayer(polyline);//eliminamos la polilínea anterior
                 polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-                //L.setLatLngs(latlngs);
             }
 
             function agregarElemento(data){
@@ -81,6 +79,9 @@
                     lista.appendChild(linew);
                     linew.appendChild(contenido);
             }
+
+
+
         </script>
         Listado
         <div id="ulListado"></div>
