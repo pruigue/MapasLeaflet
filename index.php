@@ -27,7 +27,7 @@
                 tileSize: 512,
                 zoomOffset: -1
             }).addTo(mymap);
-
+            // esta variable la uso para poder borrar la polilínea más adelante
             var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
 
             function onMapClick(e) {
@@ -84,6 +84,9 @@
                 var id=elemento.parentNode.getAttribute(elemento);
                 node=document.getElementById(id);
                 node.parentNode.removeChild(node);
+
+                var tempo;
+
             }
 
 
