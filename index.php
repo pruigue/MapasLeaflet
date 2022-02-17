@@ -35,7 +35,7 @@
                     borrar(e.latlng);//borramos el punto de la BBDD
                     latlngs.splice(latlngs.indexOf(e.latlng),1);//lo quitamos del vector de puntos
                     e.target.remove();//removemos el marcador
-                    //eliminar(e.latlng);//lo eliminamos del dcto, por hacer.....
+                    //eliminar(e.latlng.lat+' '+e.latlng.lng);//lo eliminamos del dcto, por corregir.....
                     mostrar(mymap);
                 });
 
@@ -73,11 +73,17 @@
             }
 
             function agregarElemento(data){
-                    var lista=document.getElementById("ulListado");
+                  var lista=document.getElementById("ulListado");
                     var linew= document.createElement('li');
                     var contenido = document.createTextNode(data.lat+' '+data.lng);
                     lista.appendChild(linew);
                     linew.appendChild(contenido);
+           }
+
+            function eliminar(elemento){
+                var id=elemento.parentNode.getAttribute(elemento);
+                node=document.getElementById(id);
+                node.parentNode.removeChild(node);
             }
 
 
